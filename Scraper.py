@@ -4,8 +4,22 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
 
+def create_driver():
+    # Set Chrome options for headless mode
+    options = Options()
+    options.add_argument("--headless")  # Run Chrome in headless mode
+    options.add_argument("--no-sandbox")  # Disable the sandbox (necessary on some cloud platforms)
+    options.add_argument("--disable-dev-shm-usage")  # Disable /dev/shm usage (for low-memory environments)
+
+    # Specify path to chromedriver (it will be available at /usr/local/bin/chromedriver)
+    service = Service(executable_path="/usr/local/bin/chromedriver")
+
+    # Create the WebDriver instance
+    driver = webdriver.Chrome(service=service, options=options)
+    return driver
+
 def Scraper(url):
-    driver = webdriver.Chrome()
+    driver = create_driver()
 
     try:
         driver.get(url)
