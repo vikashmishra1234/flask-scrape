@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from Scraper import Scraper
+import os
 app = Flask(__name__)
 
 # Define a basic route
@@ -24,4 +25,5 @@ def handle_data():
         return jsonify({"message": "Send a POST request with some data"}), 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Use Render's port or fallback to 5000
+    app.run(host="0.0.0.0", port=port)
